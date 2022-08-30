@@ -1,8 +1,9 @@
 FROM maven:3.8.6-openjdk-8
+WORKDIR /app
 COPY . .
-RUN apt update
-RUN apt install npm
-RUN npm install
+RUN apt update 
+RUN apt -y install npm 
 RUN mvn verify
+RUN npm install
 WORKDIR /target
-ENTRYPOINT java -Ddatasource.dialect=HSQLDB -Ddatasource.url=jdbc:hsqldb:mem:lavagna -Ddatasource.username=amos -Ddatasource.password=amos123 -Dspring.profile.active=dev -jar lavagna-jetty-console.war
+ENTRYPOINT ./entrypoint.sh
