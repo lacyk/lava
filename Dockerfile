@@ -13,5 +13,5 @@ ENTRYPOINT [          \
     ,"-Ddatasource.username=root"\
     ,"-Ddatasource.password=admin1357"\
     ,"-Dspring.profile.active=dev"\
-    ,"-jar lavagna-jetty-console.war"
+    ,"-jar lavagna-jetty-console.war"\
         ]
