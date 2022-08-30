@@ -1,6 +1,8 @@
-FROM rowanto/docker-java8-mvn-nodejs-npm
+FROM maven:3.8.6-openjdk-8
 COPY . .
-RUN mvn verify
+RUN apt update
+RUN apt install npm
 RUN npm install
+RUN mvn verify
 WORKDIR /target
-ENTRYPOINT mvn jetty:run -DstartDBManager
+ENTRYPOINT java -Ddatasource.dialect=HSQLDB -Ddatasource.url=jdbc:hsqldb:mem:lavagna -Ddatasource.username=amos -Ddatasource.password=amos123 -Dspring.profile.active=dev -jar lavagna-jetty-console.war
