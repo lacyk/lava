@@ -1,3 +1,5 @@
+#!bin/sh
+
 java -Ddatasource.dialect=HSQLDB\
                 -Ddatasource.url=jdbc:hsqldb:mem:lavagna\ 
                 -Ddatasource.username=user\

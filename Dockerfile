@@ -6,4 +6,4 @@ RUN apt -y install npm
 RUN mvn verify
 RUN npm install
 WORKDIR /target
-ENTRYPOINT ./entrypoint.sh
+ENTRYPOINT sh ./entrypoint.sh
