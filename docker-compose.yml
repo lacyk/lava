@@ -1,0 +1,29 @@
+version: "3.7"
+
+services:
+
+    lavanga_db:
+      image: mysql:5.7
+      container_name: lavanga_db
+      volumes:
+            - DB:/var/lib/mysql
+      env_file:
+            - .env
+      healthcheck:
+          test: [ "CMD", "mysqladmin", "ping", "-h", "localhost" ]
+          timeout: 40s
+          retries: 10
+      
+
+    java:
+        build: .
+        container_name: java
+        ports:
+            - 8080:8080 
+        depends_on:
+            lavanga_db:
+                condition: service_healthy
+volumes:
+    DB:
+      external: false      
+      name: DB
