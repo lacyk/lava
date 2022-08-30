@@ -1,8 +1,8 @@
 #!bin/bash
 
 cd ../app/target
-java -Ddatasource.dialect=HSQLDB\
- -Ddatasource.url=jdbc:hsqldb:mem:lavagna\
+java -Ddatasource.dialect=MYSQL\
+ -Ddatasource.url=jdbc:mysql://localhost:3306/lavagna\
  -Ddatasource.username=user\
  -Ddatasource.password=user\
  -Dspring.profile.active=dev\
