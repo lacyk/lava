@@ -1,10 +1,18 @@
-FROM maven:3.8.6-openjdk-8
+FROM maven:3.8.6-openjdk-8 AS mvn
 WORKDIR /app
 COPY . .
-RUN apt update 
-RUN apt -y install npm 
 RUN mvn verify
+
+FROM node:18.8.0-slim AS npm
+WORKDIR /app
+COPY package.json .
 RUN npm install
+
+FROM maven:3.8.6-openjdk-8 
+WORKDIR /app
+COPY --from=mvn app/target target
+COPY --from=npm app/node_modules node_modules
+COPY . .
 ENTRYPOINT [          \
     "java"\
     ,"-Ddatasource.dialect=MYSQL"\
