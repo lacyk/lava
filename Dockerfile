@@ -8,7 +8,7 @@ WORKDIR /app
 COPY package.json .
 RUN npm install
 
-FROM maven:3.8.6-openjdk-8 
+FROM openjdk:8u212-jre-alpine3.9
 WORKDIR /app
 COPY --from=mvn app/target target
 COPY --from=npm app/node_modules node_modules
