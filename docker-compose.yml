@@ -8,8 +8,6 @@ services:
       volumes:
             - DB:/var/lib/mysql
             - ./dumpdb:/docker-entrypoint-initdb.d
-      ports:
-            - 3306:3306
       env_file:
             - .env
       healthcheck:
@@ -21,8 +19,6 @@ services:
     java_app:
         build: .
         container_name: java_app
-        ports:
-            - 8080:8080 
         depends_on:
             lavanga_db:
                 condition: service_healthy
@@ -36,7 +32,7 @@ services:
         ports:
             - 80:80
         depends_on:
-              - java_app
+              - java_app      
 
 volumes:
     DB:
