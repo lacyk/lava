@@ -2,6 +2,8 @@ FROM maven:3.8.6-openjdk-8 AS mvn
 WORKDIR /app
 COPY . .
 RUN mvn verify
+RUN cp -r target app
+RUN mvn clean stampo:build
 
 FROM node:18.8.0-slim AS npm
 WORKDIR /app
@@ -10,8 +12,9 @@ RUN npm install
 
 FROM openjdk:8u212-jre-alpine3.9
 WORKDIR /app
-COPY --from=mvn app/target target
-COPY --from=npm app/node_modules node_modules
+COPY --from=mvn /app/app target
+COPY --from=mvn /app/target docs
+COPY --from=npm /app/node_modules node_modules
 COPY . .
 ENTRYPOINT [          \
     "java"\

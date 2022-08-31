@@ -1,0 +1,2 @@
+FROM nginx:1.23.1 
+COPY --from=project-java_app app/docs/lavagna/help /usr/share/nginx

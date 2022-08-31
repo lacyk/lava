@@ -21,7 +21,7 @@ services:
         container_name: java_app
         depends_on:
             lavanga_db:
-                condition: service_healthy
+                condition: service_healthy 
     
 
     nginx:
@@ -32,7 +32,17 @@ services:
         ports:
             - 80:80
         depends_on:
-              - java_app      
+              - java_app
+
+    docs:
+        image: docs:latest
+        volumes:
+              - ./nginx2.conf:/etc/nginx/conf.d/default.conf
+        ports:
+            - 8081:80
+        depends_on:
+              - java_app 
+
 
 volumes:
     DB:
